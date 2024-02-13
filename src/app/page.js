@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import PlayerOne from "./ui/PlayerOne";
+import PlayerTwo from "./ui/PlayerTwo"
 import { fetchImage } from "@/app/actions";
 
 export default function GameWrapper() {
@@ -18,11 +19,16 @@ export default function GameWrapper() {
 
   return (
     <>
-      <PlayerOne
-        handleSubmit={handleSumbit}
-        image={image}
-        advanceTurn={advanceTurn}
-      />
+      {turnStatus === "initialized" && (
+        <PlayerOne
+          handleSubmit={handleSumbit}
+          image={image}
+          advanceTurn={advanceTurn}
+        />
+      )}
+      {turnStatus === "completed" && (
+        <PlayerTwo handleSubmit={handleSumbit} image={image} />
+      )}
     </>
   );
 }
