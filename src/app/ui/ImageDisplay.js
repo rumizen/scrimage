@@ -1,14 +1,17 @@
 "use client";
+
 export default function ImageDisplay(image) {
+  const { original, original_height, original_width, title } = image.image;
+  console.log(image);
   return (
     <div>
       <img
-        src="https://live.staticflickr.com/65535/53114998258_8fea9d3f95_z.jpg"
-        width="640"
-        height="452"
-        alt="houseboat storm"
+        src={original}
+        height={original_height}
+        width={original_width}
+        alt={title || "alt"}
       />
-      <button>Finish your turn</button>
+      {title && <button>Finish your turn</button>}
     </div>
   );
 }

@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import ImageSearch from "./imageSearch";
 import ImageDisplay from "./ImageDisplay";
 
-export default function PlayerOne({handleSubmit, image}) {
+export default function PlayerOne({ handleSubmit, image }) {
   const [turnStatus, setTurnStatus] = useState("initialized");
 
   return (
@@ -16,7 +15,7 @@ export default function PlayerOne({handleSubmit, image}) {
       }}
     >
       <ImageSearch handleSubmit={handleSubmit} />
-      <ImageDisplay image={image} />
+      {image.title && <ImageDisplay image={image} />}
     </main>
   );
 }

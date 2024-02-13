@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function ImageSearch({handleSubmit}) {
+export default function ImageSearch({ handleSubmit }) {
   const [query, setQuery] = useState("");
 
   function handleChange(e) {
@@ -10,7 +10,7 @@ export default function ImageSearch({handleSubmit}) {
   return (
     <div>
       <input type="text" onChange={handleChange} value={query} />
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={() => handleSubmit()}>Submit</button>
     </div>
   );
 }

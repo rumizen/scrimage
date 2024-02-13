@@ -1,25 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PlayerOne from "./ui/PlayerOne";
 import { fetchImage } from "@/app/actions";
 
 export default function GameWrapper() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState({});
 
-  
-  useEffect(() => {
-    async function handleSumbit(query) {
-      const data = await fetchImage(query);
-      setImage(data.images_results[0]);
-    }
-    handleSumbit("kitten");
-  }, []);
+  async function handleSumbit(query) {
+    const data = await fetchImage(query);
+    setImage(data.images_results[0]);
+  }
 
   return (
     <>
-      {/* <PlayerOne handleSubmit={handleSumbit} image={image} /> */}
-      <p>Test</p>
-      {image && <img src={image.original} height={image.original_height} width={image.original_width} />}
+      <PlayerOne handleSubmit={handleSumbit} image={image} />
     </>
   );
 }
