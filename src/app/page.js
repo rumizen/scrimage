@@ -4,6 +4,7 @@ import PlayerOne from "./ui/PlayerOne";
 import { fetchImage } from "@/app/actions";
 
 export default function GameWrapper() {
+  const [turnStatus, setTurnStatus] = useState("initialized");
   const [image, setImage] = useState({});
 
   async function handleSumbit(query) {
@@ -11,9 +12,17 @@ export default function GameWrapper() {
     setImage(data.images_results[0]);
   }
 
+  function advanceTurn(status) {
+    setTurnStatus(status);
+  }
+
   return (
     <>
-      <PlayerOne handleSubmit={handleSumbit} image={image} />
+      <PlayerOne
+        handleSubmit={handleSumbit}
+        image={image}
+        advanceTurn={advanceTurn}
+      />
     </>
   );
 }

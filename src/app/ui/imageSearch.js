@@ -10,7 +10,7 @@ export default function ImageSearch({ handleSubmit }) {
   return (
     <div>
       <input type="text" onChange={handleChange} value={query} />
-      <button onClick={() => handleSubmit()}>Submit</button>
+      <button onClick={() => handleSubmit(query)}>Submit</button>
     </div>
   );
 }

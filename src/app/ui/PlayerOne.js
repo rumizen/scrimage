@@ -1,10 +1,7 @@
-import { useState } from "react";
 import ImageSearch from "./imageSearch";
 import ImageDisplay from "./ImageDisplay";
 
-export default function PlayerOne({ handleSubmit, image }) {
-  const [turnStatus, setTurnStatus] = useState("initialized");
-
+export default function PlayerOne({ handleSubmit, image, advanceTurn }) {
   return (
     <main
       style={{
@@ -15,7 +12,14 @@ export default function PlayerOne({ handleSubmit, image }) {
       }}
     >
       <ImageSearch handleSubmit={handleSubmit} />
-      {image.title && <ImageDisplay image={image} />}
+      {image.title && (
+        <>
+          <ImageDisplay image={image} />
+          <button onClick={() => advanceTurn("completed")}>
+            Finish your turn
+          </button>
+        </>
+      )}
     </main>
   );
 }
