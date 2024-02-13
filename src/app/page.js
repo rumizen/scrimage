@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import PlayerOne from "./ui/PlayerOne";
-import PlayerTwo from "./ui/PlayerTwo"
+import PlayerTwo from "./ui/PlayerTwo";
 import { fetchImage } from "@/app/actions";
 
 export default function GameWrapper() {
@@ -10,9 +10,15 @@ export default function GameWrapper() {
   const [guessPlacement, setGuessPlacement] = useState(0);
 
   function calculateGuessPlacement(results) {
-    console.log("image results:", results, "image:", image)
-    const placement = results.find(result => result.original === image.original).position;
-    setGuessPlacement(placement);
+    const placement = results.find(
+      (result) => result.original === image.original
+    );
+    console.log(placement);
+    if (placement) {
+      setGuessPlacement(placement.position);
+    } else {
+      setGuessPlacement(0);
+    }
   }
 
   async function handleSubmit(query) {
@@ -22,6 +28,7 @@ export default function GameWrapper() {
     }
     if (turnStatus === "completed") {
       calculateGuessPlacement(data.images_results);
+      setTurnStatus("result");
     }
   }
 
@@ -38,11 +45,12 @@ export default function GameWrapper() {
           advanceTurn={advanceTurn}
         />
       )}
-      {turnStatus === "completed" && (
+      {(turnStatus === "completed" || turnStatus === "result") && (
         <PlayerTwo
           handleSubmit={handleSubmit}
           image={image}
           guessPlacement={guessPlacement}
+          turnStatus={turnStatus}
         />
       )}
     </>
