@@ -1,7 +1,7 @@
 import ImageSearch from "./imageSearch";
 import ImageDisplay from "./ImageDisplay";
 
-export default function PlayerTwo({ handleSubmit, image }) {
+export default function PlayerTwo({ handleSubmit, image, guessPlacement }) {
   return (
     <main
       style={{
@@ -14,6 +14,7 @@ export default function PlayerTwo({ handleSubmit, image }) {
       <h1>PLAYER 2</h1>
       <ImageSearch handleSubmit={handleSubmit} />
       {image.title && <ImageDisplay image={image} />}
+      {guessPlacement > 0 && <h2>The image was number {guessPlacement} in the results!</h2>}
     </main>
   );
 }

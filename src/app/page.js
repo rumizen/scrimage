@@ -7,10 +7,22 @@ import { fetchImage } from "@/app/actions";
 export default function GameWrapper() {
   const [turnStatus, setTurnStatus] = useState("initialized");
   const [image, setImage] = useState({});
+  const [guessPlacement, setGuessPlacement] = useState(0);
 
-  async function handleSumbit(query) {
+  function calculateGuessPlacement(results) {
+    console.log("image results:", results, "image:", image)
+    const placement = results.find(result => result.original === image.original).position;
+    setGuessPlacement(placement);
+  }
+
+  async function handleSubmit(query) {
     const data = await fetchImage(query);
-    setImage(data.images_results[0]);
+    if (turnStatus === "initialized") {
+      setImage(data.images_results[0]);
+    }
+    if (turnStatus === "completed") {
+      calculateGuessPlacement(data.images_results);
+    }
   }
 
   function advanceTurn(status) {
@@ -21,13 +33,17 @@ export default function GameWrapper() {
     <>
       {turnStatus === "initialized" && (
         <PlayerOne
-          handleSubmit={handleSumbit}
+          handleSubmit={handleSubmit}
           image={image}
           advanceTurn={advanceTurn}
         />
       )}
       {turnStatus === "completed" && (
-        <PlayerTwo handleSubmit={handleSumbit} image={image} />
+        <PlayerTwo
+          handleSubmit={handleSubmit}
+          image={image}
+          guessPlacement={guessPlacement}
+        />
       )}
     </>
   );
