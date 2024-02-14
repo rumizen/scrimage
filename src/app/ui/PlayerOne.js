@@ -16,9 +16,7 @@ export default function PlayerOne({ handleSubmit, image, advanceTurn }) {
       {image.title && (
         <>
           <ImageDisplay image={image} />
-          <button onClick={() => advanceTurn("completed")}>
-            Finish your turn
-          </button>
+          <button onClick={() => advanceTurn(2)}>Finish your turn</button>
         </>
       )}
     </main>

@@ -5,15 +5,14 @@ import PlayerTwo from "./ui/PlayerTwo";
 import { fetchImage } from "@/app/actions";
 
 export default function GameWrapper() {
-  const [turnStatus, setTurnStatus] = useState("initialized");
+  const [playerTurn, setPlayerTurn] = useState(1);
   const [image, setImage] = useState({});
-  const [guessPlacement, setGuessPlacement] = useState(0);
+  const [guessPlacement, setGuessPlacement] = useState(null);
 
   function calculateGuessPlacement(results) {
     const placement = results.find(
       (result) => result.original === image.original
     );
-    console.log(placement);
     if (placement) {
       setGuessPlacement(placement.position);
     } else {
@@ -23,34 +22,32 @@ export default function GameWrapper() {
 
   async function handleSubmit(query) {
     const data = await fetchImage(query);
-    if (turnStatus === "initialized") {
+    if (playerTurn === 1) {
       setImage(data.images_results[0]);
     }
-    if (turnStatus === "completed") {
+    if (playerTurn === 2) {
       calculateGuessPlacement(data.images_results);
-      setTurnStatus("result");
     }
   }
 
   function advanceTurn(status) {
-    setTurnStatus(status);
+    setPlayerTurn(status);
   }
 
   return (
     <>
-      {turnStatus === "initialized" && (
+      {playerTurn === 1 && (
         <PlayerOne
           handleSubmit={handleSubmit}
           image={image}
           advanceTurn={advanceTurn}
         />
       )}
-      {(turnStatus === "completed" || turnStatus === "result") && (
+      {playerTurn === 2 && (
         <PlayerTwo
           handleSubmit={handleSubmit}
           image={image}
           guessPlacement={guessPlacement}
-          turnStatus={turnStatus}
         />
       )}
     </>
