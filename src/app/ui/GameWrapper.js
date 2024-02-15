@@ -8,6 +8,7 @@ export default function GameWrapper() {
   const [playerTurn, setPlayerTurn] = useState(1);
   const [image, setImage] = useState({});
   const [guessPlacement, setGuessPlacement] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   function calculateGuessPlacement(results) {
     const placement = results.find(
@@ -21,12 +22,15 @@ export default function GameWrapper() {
   }
 
   async function handleSubmit(query) {
+    setIsLoading(true);
     const data = await fetchImage(query);
     if (playerTurn === 1) {
       setImage(data.images_results[0]);
+      setIsLoading(false);
     }
     if (playerTurn === 2) {
       calculateGuessPlacement(data.images_results);
+      setIsLoading(false);
     }
   }
 
@@ -41,6 +45,7 @@ export default function GameWrapper() {
           handleSubmit={handleSubmit}
           image={image}
           advanceTurn={advanceTurn}
+          isLoading={isLoading}
         />
       )}
       {playerTurn === 2 && (
@@ -48,6 +53,7 @@ export default function GameWrapper() {
           handleSubmit={handleSubmit}
           image={image}
           guessPlacement={guessPlacement}
+          isLoading={isLoading}
         />
       )}
     </>
