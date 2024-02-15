@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "../image-search.module.scss"
 
 export default function ImageSearch({ handleSubmit }) {
   const [query, setQuery] = useState("");
@@ -8,9 +9,9 @@ export default function ImageSearch({ handleSubmit }) {
   }
 
   return (
-    <div>
-      <input type="text" onChange={handleChange} value={query} />
-      <button onClick={() => handleSubmit(query)}>Submit</button>
+    <div className={styles.search}>
+      <input type="text" onChange={handleChange} value={query} placeholder="Try to make it weird or silly..." />
+      <button onClick={() => handleSubmit(query)}>Go</button>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import GameWrapper from "./ui/GameWrapper";
+import GameWrapper from "./ui/GameWrapper/GameWrapper";
 
 export default function Home() {
   return (
