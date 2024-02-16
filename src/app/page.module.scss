@@ -6,6 +6,16 @@
   max-height: 100vh;
 }
 
+.loadingWrapper {
+  max-height: 200px;
+  padding-top: 2rem;
+}
+
+.loading {
+  width: 100px;
+  height: auto;
+}
+
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   
